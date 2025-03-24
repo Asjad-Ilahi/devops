@@ -1,50 +1,50 @@
-"use client"
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { toast } from "@/components/ui/use-toast"
-import { signup } from "@/app/actions/auth"
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { toast } from "@/components/ui/use-toast";
+import { signup } from "@/app/actions/auth";
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-}
+};
 
 export default function SignupPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {
-    setIsLoading(true)
-    const result = await signup(null, formData)
+    setIsLoading(true);
+    const result = await signup(null, formData);
 
     if (result.success) {
       toast({
         title: "Success",
-        description: "Account created successfully! Redirecting to login...",
-      })
-      setTimeout(() => router.push("/login"), 1500)
+        description: "Account created successfully! Redirecting to dashboard...",
+      });
+      setTimeout(() => router.push("/dashboard"), 1500); // Changed to /dashboard
     } else {
       toast({
         title: "Error",
         description: result.message,
         variant: "destructive",
-      })
+      });
     }
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   return (
     <motion.div
@@ -129,5 +129,5 @@ export default function SignupPage() {
         </motion.div>
       </div>
     </motion.div>
-  )
+  );
 }
